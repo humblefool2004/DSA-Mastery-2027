@@ -12,7 +12,11 @@ class Solution {
         }
 
         PriorityQueue<int[]> remtime=new PriorityQueue<>(
-            (a,b)-> a[2]==b[2] ? a[0]-b[0] : a[2]-b[2]
+            (a,b)-> {
+                if(a[2]!=b[2]) return a[2]-b[2];
+                if(a[0]!=b[0]) return a[0]-b[0];
+                return a[1]-b[1];
+            }
         );
 
         int[] ans= new int[tasks.length];
