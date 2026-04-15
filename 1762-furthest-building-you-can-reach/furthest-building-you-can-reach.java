@@ -1,7 +1,7 @@
 class Solution {
     public int furthestBuilding(int[] heights, int bricks, int ladders) {
         int n=heights.length;
-
+        //core problem aha moment- jump greedily then use bricks for minimun jump.
         PriorityQueue<Integer> minpq=new PriorityQueue<>();
 
         for(int i=0;i<n-1;i++){
