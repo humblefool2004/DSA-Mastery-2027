@@ -18,6 +18,8 @@ class Solution {
     }
 
     private int partition(int[][] points, int left,int right){
+        int randomIndex = left + new Random().nextInt(right - left + 1);
+        swap(points, randomIndex, right);
         int pivot=getDist(points[right]);
         int i=left;
         for(int j=left;j<right;j++){
