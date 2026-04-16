@@ -20,8 +20,13 @@ class Solution {
         int count=0;
         for(int i=n;i>0 && count<k;i--){
             if(bucket[i]!=null){
-                for(int num : bucket[i])
-                    ans[count++]=num;
+                for(int num : bucket[i]){
+                    if (count < k) {
+                        ans[count++] = num;
+                    } else {
+                        return ans;
+                    }
+                }
             }
         }
         return ans;
