@@ -1,3 +1,38 @@
+//dual array approach,to avoid sorting 2D array
+class Solution {
+    public int[][] merge(int[][] intervals) {
+        int n = intervals.length;
+        if (n <= 1) return intervals;
+
+        int[] starts = new int[n];
+        int[] ends = new int[n];
+
+        for (int i = 0; i < n; i++) {
+            starts[i] = intervals[i][0];
+            ends[i] = intervals[i][1];
+        }
+
+        // Sorting primitives is significantly faster than sorting int[][]
+        Arrays.sort(starts);
+        Arrays.sort(ends);
+
+        List<int[]> result = new ArrayList<>();
+        int startIndex = 0;
+
+        for (int i = 0; i < n; i++) {
+            // If the current start is the last one OR 
+            // the next start is greater than the current end, we found a gap.
+            if (i == n - 1 || starts[i + 1] > ends[i]) {
+                result.add(new int[]{starts[startIndex], ends[i]});
+                startIndex = i + 1;
+            }
+        }
+
+        return result.toArray(new int[result.size()][]);
+    }
+}
+/*
+//Single array optimization. (91.31,84.95)
 class Solution {
     public int[][] merge(int[][] intervals) {
         Arrays.sort(intervals, 
@@ -26,3 +61,4 @@ class Solution {
         return Arrays.copyOfRange(ans,0,intervalCount);
     }
 }
+*/
