@@ -1,30 +1,5 @@
-//dual array approach,to avoid sorting 2D array
-class Solution {
-    public int[][] merge(int[][] intervals) {
-        int n= intervals.length;
-        int start[]=new int[n];
-        int end[]=new int[n];
-        for(int i=0;i<n;i++){
-            start[i]=intervals[i][0];
-            end[i]=intervals[i][1];
-        }
-        Arrays.sort(start);
-        Arrays.sort(end);
-        List<int[]> result = new ArrayList<>();
-        int startIndex=0;
-        for(int i=0;i<n;i++){
-            if(i==n-1 || start[i+1]>end[i]){
-                result.add(new int[]{start[startIndex],end[i]});
-                startIndex=i+1;
-            }
-        }
-        return result.toArray(new int[result.size()][2]);
 
-    }
-}
-
-/*
-//Single array optimization. (91.31,84.95)
+//Normal approach
 class Solution {
     public int[][] merge(int[][] intervals) {
         Arrays.sort(intervals, 
@@ -46,4 +21,29 @@ class Solution {
         return ans.toArray(new int[ans.size()][2]);
     }
 }
-*/
+
+
+// //dual array approach,to avoid sorting 2D array it is faster internally, but i like the 1st approach more
+// class Solution {
+//     public int[][] merge(int[][] intervals) {
+//         int n= intervals.length;
+//         int start[]=new int[n];
+//         int end[]=new int[n];
+//         for(int i=0;i<n;i++){
+//             start[i]=intervals[i][0];
+//             end[i]=intervals[i][1];
+//         }
+//         Arrays.sort(start);
+//         Arrays.sort(end);
+//         List<int[]> result = new ArrayList<>();
+//         int startIndex=0;
+//         for(int i=0;i<n;i++){
+//             if(i==n-1 || start[i+1]>end[i]){
+//                 result.add(new int[]{start[startIndex],end[i]});
+//                 startIndex=i+1;
+//             }
+//         }
+//         return result.toArray(new int[result.size()][2]);
+
+//     }
+// }
