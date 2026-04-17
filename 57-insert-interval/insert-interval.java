@@ -18,6 +18,6 @@ class Solution {
             ans.add(intervals[i]);
             i++;
         }
-        return ans.toArray(new int[ans.size()][2]);
+        return ans.toArray(new int[ans.size()][]);
     }
 }
