@@ -1,38 +1,33 @@
 class Solution {
     public int calculate(String s) {
-        Stack<Integer> st = new Stack<>();
-        int currNum = 0;
-        char op = '+';
-
+        int result=0; //final answer;
+        char op = '+'; //last operator
+        int lastNum = 0; //lastNumber   
+        int currNum=0; //current Number
         for (int i = 0; i < s.length(); i++) {
             char ch = s.charAt(i);
-
             if (Character.isDigit(ch)) {
                 currNum = currNum * 10 + (ch - '0');
             }
-
-            if ((!Character.isDigit(ch) && ch != ' ') || i == s.length() - 1) {
+            if((!Character.isDigit(ch) && ch!=' ') || (i == s.length() - 1) ){
 
                 if (op == '+') {
-                    st.push(currNum);
+                    result+=lastNum;
+                    lastNum=currNum;
                 } else if (op == '-') {
-                    st.push(-currNum);
+                    result+=lastNum;
+                    lastNum= -currNum;
                 } else if (op == '*') {
-                    st.push(st.pop() * currNum);
+                    lastNum= lastNum*currNum;
                 } else if (op == '/') {
-                    st.push(st.pop() / currNum);
+                    lastNum=lastNum/currNum;
                 }
-
                 op = ch;
                 currNum = 0;
             }
         }
 
-        int ans = 0;
-        while (!st.isEmpty()) {
-            ans += st.pop();
-        }
-        return ans;
+        return result+lastNum;
     }
 }
 
