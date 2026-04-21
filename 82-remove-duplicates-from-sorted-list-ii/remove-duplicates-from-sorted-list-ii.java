@@ -13,20 +13,20 @@ class Solution {
         ListNode dummy = new ListNode(0);
         dummy.next=head;
         ListNode prev=dummy;
-        ListNode curr=dummy.next;
-        while(curr!=null && curr.next!=null){
+        while(head!=null && head.next!=null){
             boolean duplicate=false;
-            while(curr.next!=null && curr.next.val== curr.val){
-                curr=curr.next;
+            while(head.next!=null && head.next.val== head.val){
+                head=head.next;
                 duplicate=true;
             }
-            if(curr.next==null && duplicate) prev.next=null;
+
             if(duplicate){
-                prev.next=curr.next;
+                prev.next=head.next;
             }else{
-                prev=curr;
+                prev=head;
             }
-            curr=curr.next;
+            if(head.next==null) break;
+            head=head.next;
         }
         return dummy.next;
     }
