@@ -1,28 +1,19 @@
+//dutch national flag algorithm.
 class Solution {
     public void sortColors(int[] nums) {
         int n=nums.length;
         int zeros=0;
-        int ones=0;
-        int twos=0;
         for(int i=0;i<n;i++){
-            switch(nums[i]){
-                case 0 : zeros++;
-                break;
-                case 1 : ones++;
-                break;
-                case 2 : twos++;
-                break;
+            if(nums[i]==0){
+                swap(nums,zeros++,i);
+            }else if(nums[i]==2){
+                swap(nums,--n,i--);
             }
         }
-        int i=0;
-        while(zeros-- >0){
-            nums[i++]=0;
-        }
-        while(ones-->0){
-            nums[i++]=1;
-        }
-        while(twos-->0){
-            nums[i++]=2;
-        }
+    }
+    private void swap(int nums[],int a,int b){
+        int temp= nums[a];
+        nums[a]=nums[b];
+        nums[b]=temp;
     }
 }
