@@ -4,18 +4,21 @@ class Solution {
         int count = 0;
         List<List<Integer>> ans = new ArrayList<>();
         PriorityQueue<int[]> pq = new PriorityQueue<>(
-                (a, b) -> Integer.compare(nums1[a[0]] + nums2[a[1]], nums1[b[0]] + nums2[b[1]]));
+                (a, b) -> Integer.compare(a[0],b[0])
+        );
         int temp = Math.min(k, nums1.length);
         for (int i = 0; i < temp; i++) {
-            pq.add(new int[] { i, 0 });
+            int sum= nums1[i]+nums2[0];
+            pq.add(new int[] {sum, i, 0 });
         }
         while (count < k && !pq.isEmpty()) {
             int[] polled = pq.poll();
-            int i = polled[0], j = polled[1];
+            int i = polled[1], j = polled[2];
             ans.add(Arrays.asList(nums1[i], nums2[j]));
             count++;
             if (j + 1 < nums2.length) {
-                pq.add(new int[] { i, j + 1 });
+                int sum=nums1[i] + nums2[j+1];
+                pq.add(new int[] { sum,i, j + 1 });
             }
         }
         return ans;
