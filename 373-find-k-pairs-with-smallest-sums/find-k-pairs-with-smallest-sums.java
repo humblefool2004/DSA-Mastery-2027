@@ -4,7 +4,7 @@ class Solution {
         int count = 0;
         List<List<Integer>> ans = new ArrayList<>();
         PriorityQueue<int[]> pq = new PriorityQueue<>(
-                (a, b) -> a[0]-b[0]
+            (a, b) -> a[0]-b[0]
         );
         int temp = Math.min(k, nums1.length);
         for (int i = 0; i < temp; i++) {
