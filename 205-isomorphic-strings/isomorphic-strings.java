@@ -1,22 +1,38 @@
-//using array instead of map
+//further optimization...
 class Solution {
     public boolean isIsomorphic(String s, String t) {
         int[] mapS=new int[256];
         int[] mapT=new int[256];
 
+        //here we are checking the last seen (clever trick.)
         for(int i=0;i<s.length();i++){
-            char c1=s.charAt(i);
-            char c2=t.charAt(i);
-            if(mapS[c1]==0 && mapT[c2]==0){
-                mapS[c1]=c2;
-                mapT[c2]=c1;
-            }else {
-                if(mapT[c2]!=c1) return false;
-            }
+            if(mapS[s.charAt(i)]!=mapT[t.charAt(i)]) return false;
+            mapS[s.charAt(i)] = i+1;
+            mapT[t.charAt(i)]=i+1;
         }
         return true;
     }
 }
+
+// //using array instead of map
+// class Solution {
+//     public boolean isIsomorphic(String s, String t) {
+//         int[] mapS=new int[256];
+//         int[] mapT=new int[256];
+
+//         for(int i=0;i<s.length();i++){
+//             char c1=s.charAt(i);
+//             char c2=t.charAt(i);
+//             if(mapS[c1]==0 && mapT[c2]==0){
+//                 mapS[c1]=c2;
+//                 mapT[c2]=c1;
+//             }else {
+//                 if(mapT[c2]!=c1) return false;
+//             }
+//         }
+//         return true;
+//     }
+// }
 
 //Map+set approach
 /*
