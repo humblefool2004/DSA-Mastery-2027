@@ -6,9 +6,11 @@ class Solution {
 
         //here we are checking the last seen (clever trick.)
         for(int i=0;i<s.length();i++){
-            if(mapS[s.charAt(i)]!=mapT[t.charAt(i)]) return false;
-            mapS[s.charAt(i)] = i+1;
-            mapT[t.charAt(i)]=i+1;
+            char c1=s.charAt(i);
+            char c2=t.charAt(i);
+            if(mapS[c1]!=mapT[c2]) return false;
+            mapS[c1] = i+1;
+            mapT[c2]=i+1;
         }
         return true;
     }
