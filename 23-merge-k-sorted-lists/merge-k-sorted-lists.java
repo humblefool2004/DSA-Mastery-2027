@@ -16,18 +16,16 @@ class Solution {
         );
 
         for(ListNode node : lists){
-            while(node!=null){
-                pq.add(node);
-                node=node.next;
-            }
+            if(node!=null) pq.add(node);
         }
         ListNode answer=new ListNode(0);
         ListNode temp= answer;
         while(!pq.isEmpty()){
-            temp.next=pq.poll();
+            ListNode node=pq.poll();
+            temp.next=node;
             temp=temp.next;
+            if(node.next!=null) pq.add(node.next);
         }
-        temp.next=null;
         return answer.next;
     }
 }
