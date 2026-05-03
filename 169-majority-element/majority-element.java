@@ -6,7 +6,7 @@ class Solution {
             if(nums[i]!=majority){
                 track--;
             }else track++;
-            if(track==-1){
+            if(track==0){
                 majority=nums[i];
                 track=1;
             }
