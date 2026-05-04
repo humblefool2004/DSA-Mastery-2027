@@ -1,7 +1,7 @@
 class Solution {
     public List<List<Integer>> permute(int[] nums) {
         List<List<Integer>> ans= new ArrayList<>();
-        permutations(ans,nums,0,new ArrayList<>());
+        permutations(ans,nums,0);
         return ans;
     }
 
@@ -11,16 +11,16 @@ class Solution {
         nums[b]= temp;
     }
 
-    private void permutations(List<List<Integer>> ans, int nums[],int start, List<Integer> list){
+    private void permutations(List<List<Integer>> ans, int nums[],int start){
         if(start==nums.length){
-            ans.add(new ArrayList<>(list));
+            List<Integer> list= new ArrayList<>();
+            for(int num : nums) list.add(num);
+            ans.add(list);
             return;
         }
         for(int i=start;i<nums.length;i++){
             swap(nums,start,i);
-            list.add(nums[start]);
-            permutations(ans,nums,start+1,list);
-            list.removeLast();
+            permutations(ans,nums,start+1);
             swap(nums,start,i);
         }
     }
