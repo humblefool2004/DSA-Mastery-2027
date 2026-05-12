@@ -8,30 +8,34 @@ class Solution {
 
         Queue<Integer> queue= new ArrayDeque<>(); 
         queue.add(sr*n + sc);
+        image[sr][sc] = color;
 
         while(!queue.isEmpty()){
             int curr=queue.poll();
             int r=curr/n;
             int c= curr%n;
-            image[r][c]=color;
+
             if(validEdge(image,m,n,r,c+1,initialColor)){
                 queue.add(r*n +c+1);
+                image[r][c+1]=color;
             }
             if(validEdge(image,m,n,r,c-1,initialColor)){
                 queue.add(r*n +c-1);
+                image[r][c-1]=color;
             }
             if(validEdge(image,m,n,r+1,c,initialColor)){
                 queue.add((r+1)*n +c);
+                image[r+1][c]=color;
             }
             if(validEdge(image,m,n,r-1,c,initialColor)){
                 queue.add((r-1)*n +c);
+                image[r-1][c]=color;
             }  
         }
         return image;
     }
 
     private boolean validEdge(int image[][], int m, int n, int i,int j,int initialColor){
-        if(i>= m || i<0 || j>=n || j<0) return false;
-        return image[i][j]==initialColor;
+        return i>=0 && i<m && j>=0 && j<n && image[i][j]==initialColor;
     }
 }
