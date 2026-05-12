@@ -1,3 +1,4 @@
+// using bfs
 class Solution {
     public int[][] floodFill(int[][] image, int sr, int sc, int color) {
         int initialColor=image[sr][sc];
@@ -25,16 +26,12 @@ class Solution {
             for(int[] d : dir) {
                 int nr = r + d[0];
                 int nc = c + d[1];
-                if(valid(image, m, n, nr, nc, initialColor)) {
+                if(nr>=0 && nr<m && nc>=0 && nc<n && image[nr][nc]==initialColor) {
                     queue.add(nr * n + nc);
                     image[nr][nc] = color;
                 }
             }  
         }
         return image;
-    }
-
-    private boolean valid(int image[][], int m, int n, int i,int j,int initialColor){
-        return i>=0 && i<m && j>=0 && j<n && image[i][j]==initialColor;
     }
 }
