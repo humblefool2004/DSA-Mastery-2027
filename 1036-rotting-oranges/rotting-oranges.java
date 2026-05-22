@@ -6,39 +6,41 @@ class Solution {
         {0,1}
     };
 
-    private int fresh = 0;
-    private int minutes = 0;
-
     public int orangesRotting(int[][] grid) {
-        Queue<Integer> queue = new ArrayDeque<>();
-        for(int i=0;i<grid.length;i++){
-            for(int j=0;j<grid[0].length;j++){
-                if(grid[i][j]==1) fresh++;
-                else if(grid[i][j]==2) queue.offer(grid[0].length*i + j);
+        int rows = grid.length;
+        int cols = grid[0].length;
+
+        Queue<int[]> queue = new ArrayDeque<>();
+
+        int fresh=0;
+
+        for(int i=0;i<rows;i++){
+            for(int j=0;j<cols;j++){
+                if(grid[i][j]==1) 
+                    fresh++;
+                else if(grid[i][j]==2) 
+                    queue.offer(new int[]{i,j});
             }
         }
-        findMins(grid, queue);
-        return fresh == 0 ? minutes : -1;
-    }
+        int minutes=0;
 
-    private void findMins(int[][] grid, Queue<Integer> queue){
-        if(fresh==0 || queue.isEmpty()) return;
-        int n= queue.size();
-        for(int k=0;k<n && fresh>0;k++){
-            int curr=queue.poll();
-            int i = curr / grid[0].length;
-            int j = curr % grid[0].length;
-            for(int d[] : dir){
-                int ni= i+d[0];
-                int nj= j+d[1];
-                if(ni>=0 && ni<grid.length && nj >=0 && nj<grid[0].length && grid[ni][nj]==1){
-                    queue.offer(ni* grid[0].length + nj);
-                    grid[ni][nj]=2;
-                    fresh--;
+        while(!queue.isEmpty() && fresh > 0){
+            int size= queue.size();
+
+            for(int k=0;k<size;k++){
+                int[] curr= queue.poll();
+                for(int[] d : dir){
+                    int i= curr[0] + d[0];
+                    int j= curr[1] + d[1];
+                    if(i>=0 && i<rows && j>=0 && j<cols  && grid[i][j]==1){
+                        grid[i][j]=2;
+                        fresh--;
+                        queue.offer(new int[]{i,j});
+                    }
                 }
             }
+            minutes++;
         }
-        minutes++;
-        findMins(grid,queue);
+        return fresh == 0 ? minutes : -1;
     }
 }
