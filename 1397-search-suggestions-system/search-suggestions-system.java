@@ -37,7 +37,7 @@ class Solution {
             list.add(currentWord);
         }
         
-        for(int i=0;i<26;i++){
+        for(int i=0;i<26 && list.size() <3;i++){
             if(node.children[i]!=null){
                 searchHelper(node.children[i],currentWord + (char)('a'+i),list);
             }
