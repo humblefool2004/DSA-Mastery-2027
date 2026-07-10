@@ -3,14 +3,6 @@ class Solution {
         
         int dp[][]=new int[text1.length()+1][text2.length()+1];
 
-        //initialisation of dp
-        for(int i=0;i<dp.length;i++){
-            dp[i][0]=0;
-        }
-        for(int j=0;j<dp[0].length;j++){
-            dp[0][j]=0;
-        }
-
         char[] t1= text1.toCharArray();
         char[] t2= text2.toCharArray();
 
