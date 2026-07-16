@@ -4,19 +4,11 @@ class Solution {
         // System.out.println(Integer.MIN_VALUE);//-2147483648
         // System.out.println(Integer.MAX_VALUE); //2147483647
         int rev=0;
-        while(x>0){
-            if(rev>214748364 ) return 0;
-            if(rev==214748364 && x%10>7) return 0;
-            System.out.println(x);
-            rev= rev*10 + x%10;
-            x/=10;
-        }
-
-        while(x<0){
-            if(rev<-214748364) return 0;
-            if(rev==-214748364 && x%10>8) return 0;
-            System.out.println(x);
-            rev= rev*10 + x%10;
+        while(x!=0){
+            int digit= x%10;
+            if(rev>Integer.MAX_VALUE/10 || (rev==214748364 && digit>7)) return 0;
+            if(rev<Integer.MIN_VALUE/10 || (rev==-214748364 && digit<-8)) return 0;
+            rev= rev*10 + digit;
             x/=10;
         }
 
