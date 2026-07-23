@@ -5,7 +5,7 @@ class Solution {
         Collections.sort(tasks,(a,b)->b-a);
 
         int completed=0;
-        int ans=Integer.MIN_VALUE;
+        int ans=0;
 
         for(int num : processorTime){
             
