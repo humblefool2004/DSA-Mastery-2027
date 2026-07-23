@@ -2,7 +2,7 @@ class Solution {
     public int minProcessingTime(List<Integer> processorTime, List<Integer> tasks) {
         
         Collections.sort(processorTime);
-        Collections.sort(tasks,Collections.reverseOrder());
+        Collections.sort(tasks,(a,b)->b-a);
 
         int completed=0;
         int ans=Integer.MIN_VALUE;
