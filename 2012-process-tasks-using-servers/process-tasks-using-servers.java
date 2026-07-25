@@ -41,9 +41,9 @@ class Solution {
                     freePq.add(busyPq.poll()[2]);
                 }
             }
-
-            ans[i] = freePq.poll();
-            busyPq.add(new int[] { currentTime+tasks[i],servers[ans[i]], ans[i] });
+            int a=freePq.poll();
+            ans[i] = a;
+            busyPq.add(new int[] { currentTime+tasks[i],servers[a], a });
         }
         return ans;
     }
