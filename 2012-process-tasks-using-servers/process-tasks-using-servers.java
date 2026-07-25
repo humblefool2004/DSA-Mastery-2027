@@ -1,26 +1,38 @@
 class Solution {
+
+    class Server {
+        int index;
+        int weight;
+        long freeTime;
+
+        Server(int index, int weight) {
+            this.index = index;
+            this.weight = weight;
+            this.freeTime = 0;
+        }
+    }
+
     public int[] assignTasks(int[] servers, int[] tasks) {
 
         int n = tasks.length;
         int m = servers.length;
 
-        PriorityQueue<Integer> freePq = new PriorityQueue<>((a, b) -> {
-            if (servers[a] != servers[b])
-                return Integer.compare(servers[a], servers[b]);
-            return Integer.compare(a, b);
+        PriorityQueue<Server> freePq = new PriorityQueue<>((a, b) -> {
+            if (a.weight != b.weight)
+                return Integer.compare(a.weight, b.weight);
+            return Integer.compare(a.index, b.index);
         });
 
         for (int i = 0; i < m; i++) {
-            freePq.add(i);
+            freePq.offer(new Server(i, servers[i]));
         }
 
-        // {freeTime, weight, serverId}
-        PriorityQueue<long[]> busyPq = new PriorityQueue<>((a, b) -> {
-            if (a[0] != b[0])
-                return Long.compare(a[0], b[0]);
-            if (a[1] != b[1])
-                return Long.compare(a[1], b[1]);
-            return Long.compare(a[2], b[2]);
+        PriorityQueue<Server> busyPq = new PriorityQueue<>((a, b) -> {
+            if (a.freeTime != b.freeTime)
+                return Long.compare(a.freeTime, b.freeTime);
+            if (a.weight != b.weight)
+                return Integer.compare(a.weight, b.weight);
+            return Integer.compare(a.index, b.index);
         });
 
         int[] ans = new int[n];
@@ -31,27 +43,26 @@ class Solution {
 
             currentTime = Math.max(currentTime, (long) i);
 
-            while (!busyPq.isEmpty() && busyPq.peek()[0] <= currentTime) {
-                freePq.add((int) busyPq.poll()[2]);
+            while (!busyPq.isEmpty() && busyPq.peek().freeTime <= currentTime) {
+                freePq.offer(busyPq.poll());
             }
 
             if (freePq.isEmpty()) {
 
-                currentTime = busyPq.peek()[0];
+                currentTime = busyPq.peek().freeTime;
 
-                while (!busyPq.isEmpty() && busyPq.peek()[0] == currentTime) {
-                    freePq.add((int) busyPq.poll()[2]);
+                while (!busyPq.isEmpty() && busyPq.peek().freeTime == currentTime) {
+                    freePq.offer(busyPq.poll());
                 }
             }
 
-            int server = freePq.poll();
-            ans[i] = server;
+            Server server = freePq.poll();
 
-            busyPq.add(new long[]{
-                currentTime + tasks[i],
-                servers[server],
-                server
-            });
+            ans[i] = server.index;
+
+            server.freeTime = currentTime + tasks[i];
+
+            busyPq.offer(server);
         }
 
         return ans;
