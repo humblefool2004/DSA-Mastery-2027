@@ -1,49 +1,32 @@
-
-//Normal approach
 class Solution {
     public int[][] merge(int[][] intervals) {
-        Arrays.sort(intervals, 
-        (a,b)-> a[0]-b[0]
-        );
+        if(intervals.length==1) return intervals;
+        Arrays.sort(intervals,(a,b)-> {
+            if(a[0]!=b[0]) return Integer.compare(a[0],b[0]);
+            return Integer.compare(a[1],b[1]);
+        });
 
-        int n=intervals.length;
-        int[] currInterval = intervals[0];
-        List<int[]> ans= new ArrayList<>();
-        for(int i=1;i<n;i++){
-            if(currInterval[1]>=intervals[i][0]){
-                currInterval[1] = Math.max(currInterval[1],intervals[i][1]);
-            }else{
-                ans.add(currInterval);
-                currInterval=intervals[i];
+        int start=intervals[0][0];
+        int end= intervals[0][1];
+
+        List<int[]> list= new ArrayList<>();
+        for(int i=1;i<intervals.length;i++){
+            if(end<intervals[i][0]){
+                list.add(new int[]{start,end});
+                start= intervals[i][0];
+                end= intervals[i][1];
+            }else if(end>=intervals[i][0] && end<=intervals[i][1]){
+                end= Math.max(end,intervals[i][1]);
             }
         }
-        ans.add(currInterval);
-        return ans.toArray(new int[ans.size()][2]);
+        list.add(new int[]{start,end});
+        int ans[][]= new int[list.size()][2];
+        int i=0;
+        for(int arr[] : list){
+            ans[i++]= arr;
+        }
+        return ans;
+
+
     }
 }
-
-
-// //dual array approach,to avoid sorting 2D array it is faster internally, but i like the 1st approach more
-// class Solution {
-//     public int[][] merge(int[][] intervals) {
-//         int n= intervals.length;
-//         int start[]=new int[n];
-//         int end[]=new int[n];
-//         for(int i=0;i<n;i++){
-//             start[i]=intervals[i][0];
-//             end[i]=intervals[i][1];
-//         }
-//         Arrays.sort(start);
-//         Arrays.sort(end);
-//         List<int[]> result = new ArrayList<>();
-//         int startIndex=0;
-//         for(int i=0;i<n;i++){
-//             if(i==n-1 || start[i+1]>end[i]){
-//                 result.add(new int[]{start[startIndex],end[i]});
-//                 startIndex=i+1;
-//             }
-//         }
-//         return result.toArray(new int[result.size()][2]);
-
-//     }
-// }
