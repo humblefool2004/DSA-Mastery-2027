@@ -15,7 +15,7 @@ class Solution {
                 list.add(new int[]{start,end});
                 start= intervals[i][0];
                 end= intervals[i][1];
-            }else if(end>=intervals[i][0] && end<=intervals[i][1]){
+            }else{
                 end= Math.max(end,intervals[i][1]);
             }
         }
