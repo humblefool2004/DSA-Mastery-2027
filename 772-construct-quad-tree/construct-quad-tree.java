@@ -1,0 +1,71 @@
+/*
+// Definition for a QuadTree node.
+class Node {
+    public boolean val;
+    public boolean isLeaf;
+    public Node topLeft;
+    public Node topRight;
+    public Node bottomLeft;
+    public Node bottomRight;
+
+    
+    public Node() {
+        this.val = false;
+        this.isLeaf = false;
+        this.topLeft = null;
+        this.topRight = null;
+        this.bottomLeft = null;
+        this.bottomRight = null;
+    }
+    
+    public Node(boolean val, boolean isLeaf) {
+        this.val = val;
+        this.isLeaf = isLeaf;
+        this.topLeft = null;
+        this.topRight = null;
+        this.bottomLeft = null;
+        this.bottomRight = null;
+    }
+    
+    public Node(boolean val, boolean isLeaf, Node topLeft, Node topRight, Node bottomLeft, Node bottomRight) {
+        this.val = val;
+        this.isLeaf = isLeaf;
+        this.topLeft = topLeft;
+        this.topRight = topRight;
+        this.bottomLeft = bottomLeft;
+        this.bottomRight = bottomRight;
+    }
+}
+*/
+
+class Solution {
+    public Node construct(int[][] grid) {
+        return makeQuadTree(0,0,grid.length,grid);
+    }
+
+    private Node makeQuadTree(int startI,int startJ,int size,int[][] grid){
+        if(isLeaf(startI,startJ,size,grid)){
+            boolean val=true;
+            if(grid[startI][startJ]==0) val=false;
+            return new Node(val,true);
+        }
+        size/= 2;
+    
+        Node topleft= makeQuadTree(startI,startJ,size,grid);
+        Node topright= makeQuadTree(startI,startJ+size,size,grid);  
+        Node bottomleft= makeQuadTree(startI+size,startJ,size,grid);
+        Node bottomright= makeQuadTree(startI+size,startJ+size,size,grid);
+
+        return new Node(true,false,topleft,topright,bottomleft,bottomright);
+    }
+
+    private boolean isLeaf(int startI,int startJ, int size,int[][] grid){
+        int a=grid[startI][startJ];
+        for(int i=startI;i<startI+size;i++){
+            for(int j =startJ;j<startJ+size;j++){
+                if(grid[i][j]!=a) return false; 
+            }
+        }
+        return true;
+    }
+}
