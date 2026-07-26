@@ -45,9 +45,7 @@ class Solution {
 
     private Node makeQuadTree(int startI,int startJ,int size,int[][] grid){
         if(isLeaf(startI,startJ,size,grid)){
-            boolean val=true;
-            if(grid[startI][startJ]==0) val=false;
-            return new Node(val,true);
+            return new Node(grid[startI][startJ]==1,true);
         }
         size/= 2;
     
