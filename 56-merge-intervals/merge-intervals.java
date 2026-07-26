@@ -1,10 +1,9 @@
 class Solution {
     public int[][] merge(int[][] intervals) {
         if(intervals.length==1) return intervals;
-        Arrays.sort(intervals,(a,b)-> {
-            if(a[0]!=b[0]) return Integer.compare(a[0],b[0]);
-            return Integer.compare(a[1],b[1]);
-        });
+        Arrays.sort(intervals,(a,b)-> 
+            Integer.compare(a[0],b[0])
+        );
 
         int start=intervals[0][0];
         int end= intervals[0][1];
