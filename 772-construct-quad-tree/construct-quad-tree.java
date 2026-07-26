@@ -48,13 +48,13 @@ class Solution {
             return new Node(grid[startI][startJ]==1,true);
         }
         size/= 2;
-    
-        Node topleft= makeQuadTree(startI,startJ,size,grid);
-        Node topright= makeQuadTree(startI,startJ+size,size,grid);  
-        Node bottomleft= makeQuadTree(startI+size,startJ,size,grid);
-        Node bottomright= makeQuadTree(startI+size,startJ+size,size,grid);
 
-        return new Node(true,false,topleft,topright,bottomleft,bottomright);
+        return new Node(true,
+            false,
+            makeQuadTree(startI,startJ,size,grid),
+            makeQuadTree(startI,startJ+size,size,grid),
+            makeQuadTree(startI+size,startJ,size,grid),
+            makeQuadTree(startI+size,startJ+size,size,grid));
     }
 
     private boolean isLeaf(int startI,int startJ, int size,int[][] grid){
