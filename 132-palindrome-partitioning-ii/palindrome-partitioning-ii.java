@@ -5,11 +5,16 @@ class Solution {
         int[] minCut=new int[n];
         Arrays.fill(minCut,Integer.MAX_VALUE);
         boolean[][] dp= new boolean[n][n];
-        for(int i=0;i<n;i++){
+        
+        for(int i=n-1;i>=0;i--){
             for(int j=i;j<n;j++){
-                dp[i][j]= checkPalindrome(s,i,j);
+                if(s.charAt(i)==s.charAt(j)){
+                    if(j-i<2) dp[i][j]=true;
+                    else dp[i][j]=dp[i+1][j-1];
+                }
             }
         }
+
         minCut[0]=0;
         for(int i=1;i<n;i++){
             if(dp[0][i]) minCut[i]=0;
