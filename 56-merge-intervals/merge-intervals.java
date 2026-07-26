@@ -20,12 +20,7 @@ class Solution {
             }
         }
         list.add(new int[]{start,end});
-        int ans[][]= new int[list.size()][2];
-        int i=0;
-        for(int arr[] : list){
-            ans[i++]= arr;
-        }
-        return ans;
+        return list.toArray(new int[list.size()][]);
 
 
     }
