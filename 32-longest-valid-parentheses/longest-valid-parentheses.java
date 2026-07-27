@@ -8,11 +8,9 @@ class Solution {
             else if((s.charAt(i))==')' && st.isEmpty()) invalid.add(i);
             else st.pop(); 
         }
-        System.out.println(invalid);
         while(!st.isEmpty()){
             invalid.add(st.pop());
         }
-        System.out.println(invalid);
         Collections.sort(invalid);
         invalid.add(s.length());
         int max=0;
@@ -21,7 +19,6 @@ class Solution {
             int a = invalid.get(i)-invalid.get(i-1) -1;
             if(a>max) max=a;
         }
-        System.out.println(invalid);
         return max;
     }
 }
