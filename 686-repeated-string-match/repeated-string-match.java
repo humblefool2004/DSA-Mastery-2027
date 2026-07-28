@@ -9,9 +9,8 @@ class Solution {
             sb.append(a);
         }
 
-        int maxAppendPossible=2 * numberOfAppends;
+        int maxAppendPossible=numberOfAppends+1;
         
-        boolean found=false;
         int j=0;
         int len=0;
         while(numberOfAppends<=maxAppendPossible){
@@ -20,8 +19,7 @@ class Solution {
                     len++;
                     j++;
                     if(j==b.length()){
-                        found=true;
-                        break;
+                        return numberOfAppends;
                     }
                 }else{
                     if(j!=0){
@@ -32,11 +30,10 @@ class Solution {
                     }
                 }
             }
-            if(found) break;
             sb.append(a);
             numberOfAppends++;
         }
-        return found ? numberOfAppends : -1;
+        return -1;
 
     }
 
