@@ -18,13 +18,10 @@ class Solution {
 
     }
     private int recurseEmployee(Employee employee,Map<Integer,Employee>  map){
-        if((employee.subordinates).size() == 0){
-            return employee.importance;
+        int sum=employee.importance;
+        for(int subId : employee.subordinates){
+            sum += recurseEmployee(map.get(subId),map);
         }
-        int sum=0;
-        for(int num : employee.subordinates){
-            sum += recurseEmployee(map.get(num),map);
-        }
-        return sum+employee.importance;
+        return sum;
     }
 }
