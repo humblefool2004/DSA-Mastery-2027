@@ -1,32 +1,33 @@
-class Solution {
-    public boolean canPartition(int[] nums) {
-        int totalSum = 0;
-        for (int num : nums)
-            totalSum += num;
-        if (totalSum % 2 == 1)
-            return false;
-        int target = totalSum / 2;
+//dp 1d optimization
+// class Solution {
+//     public boolean canPartition(int[] nums) {
+//         int totalSum = 0;
+//         for (int num : nums)
+//             totalSum += num;
+//         if (totalSum % 2 == 1)
+//             return false;
+//         int target = totalSum / 2;
 
-        boolean dp[] = new boolean[target + 1];
+//         boolean dp[] = new boolean[target + 1];
 
         
-        dp[0]=true;
-        if (nums[0] <= target)
-            dp[nums[0]] = true;
+//         dp[0]=true;
+//         if (nums[0] <= target)
+//             dp[nums[0]] = true;
 
-        for (int idx = 1; idx < nums.length; idx++) {
-            for (int sum = dp.length-1; sum >0; sum--) {
-                if (sum >= nums[idx]) {
-                    dp[sum] |= dp[sum - nums[idx]];
-                }
-            }
-        }
-        return dp[target];
-    }
-}
+//         for (int idx = 1; idx < nums.length; idx++) {
+//             for (int sum = dp.length-1; sum >0; sum--) {
+//                 if (sum >= nums[idx]) {
+//                     dp[sum] |= dp[sum - nums[idx]];
+//                 }
+//             }
+//         }
+//         return dp[target];
+//     }
+// }
 
 //recursion+memorization
-/*
+
 class Solution {
     public boolean canPartition(int[] nums) {
         int totalSum = 0;
@@ -54,4 +55,3 @@ class Solution {
                 || check(nums, idx - 1, sum, target, dp));
     }
 }
-*/
