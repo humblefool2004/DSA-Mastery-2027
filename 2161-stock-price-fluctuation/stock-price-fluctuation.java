@@ -3,41 +3,42 @@ class StockPrice {
     private PriorityQueue<int[]> minHeap;
     private PriorityQueue<int[]> maxHeap;
     private int latestTimestamp;
+
     public StockPrice() {
-        timeToPrice= new HashMap<>();
-        minHeap= new PriorityQueue<>((a,b)->
-            Integer.compare(a[0],b[0])
-        );
-        maxHeap= new PriorityQueue<>((a,b)->
-            Integer.compare(b[0],a[0])
-        );
+        timeToPrice = new HashMap<>();
+        minHeap = new PriorityQueue<>((a, b) -> Integer.compare(a[0], b[0]));
+        maxHeap = new PriorityQueue<>((a, b) -> Integer.compare(b[0], a[0]));
     }
-    
+
     public void update(int timestamp, int price) {
-        int[] arr={price,timestamp};
+        int[] arr = { price, timestamp };
         minHeap.offer(arr);
         maxHeap.offer(arr);
-        timeToPrice.put(timestamp,price);
-        latestTimestamp=Math.max(latestTimestamp,timestamp);
+        timeToPrice.put(timestamp, price);
+        latestTimestamp = Math.max(latestTimestamp, timestamp);
     }
-    
+
     public int current() {
         return timeToPrice.get(latestTimestamp);
     }
-    
+
     public int maximum() {
 
-        while(timeToPrice.get(maxHeap.peek()[1]) !=maxHeap.peek()[0]){
+        while (true) {
+            int[] top = maxHeap.peek();
+            if (timeToPrice.get(top[1]) == top[0])
+                return top[0];
             maxHeap.poll();
         }
-        return maxHeap.peek()[0];
     }
-    
+
     public int minimum() {
-        while(timeToPrice.get(minHeap.peek()[1]) !=minHeap.peek()[0]){
+        while (true) {
+            int[] top = minHeap.peek();
+            if (timeToPrice.get(top[1]) == top[0])
+                return top[0];
             minHeap.poll();
         }
-        return minHeap.peek()[0];    
     }
 }
 
@@ -50,9 +51,7 @@ class StockPrice {
  * int param_4 = obj.minimum();
  */
 
-
-
- //solved using two treemaps
+//solved using two treemaps
 // class StockPrice {
 
 //     private TreeMap<Integer,Integer> map; //time,price
@@ -62,7 +61,7 @@ class StockPrice {
 //         map= new TreeMap<>();
 //         priceFreq= new TreeMap<>();
 //     }
-    
+
 //     public void update(int timestamp, int price) {
 //         if(map.containsKey(timestamp)){
 //             int oldPrice = map.get(timestamp);
@@ -76,15 +75,15 @@ class StockPrice {
 //         priceFreq.put(price, priceFreq.getOrDefault(price,0)+1);
 //         latestTimestamp = Math.max(latestTimestamp, timestamp);
 //     }
-    
+
 //     public int current() {
 //         return map.get(latestTimestamp);
 //     }
-    
+
 //     public int maximum() {
 //         return priceFreq.lastKey();
 //     }
-    
+
 //     public int minimum() {
 //         return priceFreq.firstKey();
 //     }
