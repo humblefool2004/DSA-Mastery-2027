@@ -2,7 +2,7 @@ class StockPrice {
 
     private TreeMap<Integer,Integer> map; //time,price
     private TreeMap<Integer,Integer> priceFreq; // frequency of prices
-
+    private int latestTimestamp = 0;
     public StockPrice() {
         map= new TreeMap<>();
         priceFreq= new TreeMap<>();
@@ -19,10 +19,11 @@ class StockPrice {
         }
         map.put(timestamp,price);
         priceFreq.put(price, priceFreq.getOrDefault(price,0)+1);
+        latestTimestamp = Math.max(latestTimestamp, timestamp);
     }
     
     public int current() {
-        return map.get(map.lastKey());
+        return map.get(latestTimestamp);
     }
     
     public int maximum() {
