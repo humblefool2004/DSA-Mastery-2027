@@ -7,9 +7,9 @@ class Solution {
             return false;
         int target = totalSum / 2;
 
-        Boolean dp[][] = new Boolean[nums.length][target + 1];
+        Boolean dp[][] = new Boolean[nums.length][target + 1]; //dp creatinon
 
-        return check(nums, nums.length - 1, 0, totalSum / 2, dp);
+        return check(nums, nums.length - 1, 0, target, dp);
     }
 
     private boolean check(int[] nums, int idx, int sum, int target, Boolean dp[][]) {
