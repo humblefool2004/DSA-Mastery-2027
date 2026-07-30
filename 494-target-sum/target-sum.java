@@ -10,7 +10,7 @@
 class Solution {
     public int findTargetSumWays(int[] nums, int target) {
 
-        Integer[][] dp= new Integer[nums.length][2002];
+        Integer[][] dp= new Integer[nums.length][2001];
 
         return search(nums.length-1,nums,target,0,dp);
     }
