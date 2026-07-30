@@ -4,7 +4,7 @@ class Solution {
         if(nums.length==2) return Math.max(nums[0],nums[1]);
         if(nums.length==3) return Math.max(nums[0],Math.max(nums[1],nums[2]));
 
-        int max=Integer.MIN_VALUE;
+        
 
         int prev2=0;
         int prev1=nums[1];
@@ -13,7 +13,7 @@ class Solution {
             prev2=prev1;
             prev1=curr;
         }
-        max= Math.max(prev1,max);
+        int max= prev1;
 
         prev2=nums[0];
         prev1=Math.max(nums[0], nums[1]);
