@@ -5,7 +5,6 @@ class Solution {
 
         return search(nums.length-1,nums,target,0,dp);
     }
-
     //search returns the number of paths.
     private int search(int idx,int[] nums, int target,int sum,Integer[][] dp){
         if(idx<0){
