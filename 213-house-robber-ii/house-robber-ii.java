@@ -5,22 +5,25 @@ class Solution {
         if(nums.length==3) return Math.max(nums[0],Math.max(nums[1],nums[2]));
 
         int max=Integer.MIN_VALUE;
-        
-        int dp[] = new int[nums.length];
-        dp[1]=nums[1];
-        for(int i=2;i<nums.length;i++){
-            dp[i]= Math.max(dp[i-1],nums[i] + dp[i-2]);
-        }
-        max= Math.max(dp[nums.length-1],max);
 
-        Arrays.fill(dp,0);
-        dp[0]=nums[0];
-        dp[1]=Math.max(nums[0], nums[1]);
+        int prev2=0;
+        int prev1=nums[1];
+        for(int i=2;i<nums.length;i++){
+            int curr= Math.max(prev1,nums[i] + prev2);
+            prev2=prev1;
+            prev1=curr;
+        }
+        max= Math.max(prev1,max);
+
+        prev2=nums[0];
+        prev1=Math.max(nums[0], nums[1]);
 
         for(int i=2;i<nums.length-1;i++){
-            dp[i]= Math.max(dp[i-1],dp[i-2]+nums[i]);
+            int curr= Math.max(prev1,prev2+nums[i]);
+            prev2=prev1;
+            prev1=curr;
         }
-        max= Math.max(dp[nums.length-2],max);
+        max= Math.max(prev1,max);
         return max;
     }
 }
