@@ -44,14 +44,14 @@ class Solution {
         if(visited[i][j][check]){
             return;
         }
-        if(heights[i][j]>=prev){
-            visited[i][j][check]=true;
-            prev=heights[i][j];
-            dfs(i-1,j,heights,check,prev);
-            dfs(i+1,j,heights,check,prev);
-            dfs(i,j-1,heights,check,prev);
-            dfs(i,j+1,heights,check,prev);
-        }
+        if (heights[i][j] < prev)
+            return;
+        visited[i][j][check]=true;
+        prev=heights[i][j];
+        dfs(i-1,j,heights,check,prev);
+        dfs(i+1,j,heights,check,prev);
+        dfs(i,j-1,heights,check,prev);
+        dfs(i,j+1,heights,check,prev);
         
     }
 }
