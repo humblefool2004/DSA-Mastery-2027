@@ -14,6 +14,7 @@ class Solution {
         Map<TreeNode, TreeNode> map = new HashMap<>();
 
         Set<TreeNode> visited = new HashSet<>();
+        
         while (!queue.isEmpty()) {
             TreeNode parent = queue.poll();
             if (parent.left != null) {
