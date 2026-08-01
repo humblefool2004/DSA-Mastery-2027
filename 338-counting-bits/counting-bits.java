@@ -9,6 +9,13 @@ class Solution {
                 ans[i]= ans[i/2]+1;
             }
         }
+        System.out.println(5 | 11);
+        System.out.println(5 & 11);
         return ans;
     }
 }
+
+
+
+
+
