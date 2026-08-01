@@ -8,25 +8,16 @@
  * }
  */
 class Solution {
+
+    private Map<TreeNode, TreeNode> map = new HashMap<>();
+
     public List<Integer> distanceK(TreeNode root, TreeNode target, int k) {
-        Queue<TreeNode> queue = new ArrayDeque<>();
-        queue.offer(root);
-        Map<TreeNode, TreeNode> map = new HashMap<>();
+        
+        buildParent(root, null);
 
         Set<TreeNode> visited = new HashSet<>();
-        
-        while (!queue.isEmpty()) {
-            TreeNode parent = queue.poll();
-            if (parent.left != null) {
-                map.put(parent.left, parent);
-                queue.offer(parent.left);
-            }
-            if (parent.right != null) {
-                map.put(parent.right, parent);
-                queue.offer(parent.right);
-            }
-        }
 
+        Queue<TreeNode> queue = new ArrayDeque<>();
         queue.offer(target);
         visited.add(target);
 
@@ -51,11 +42,21 @@ class Solution {
             }
         }
 
-        List<Integer> list = new ArrayList<>();
+        List<Integer> list = new ArrayList<>(queue.size());
         while (!queue.isEmpty()) {
             list.add(queue.poll().val);
         }
         return list;
+    }
 
+    private void buildParent(TreeNode node, TreeNode parent) {
+        if (node == null)
+            return;
+
+        if (parent != null)
+            map.put(node, parent);
+
+        buildParent(node.left, node);
+        buildParent(node.right, node);
     }
 }
