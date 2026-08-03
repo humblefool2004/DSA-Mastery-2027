@@ -1,52 +1,67 @@
 class Solution {
 
-    private boolean visited[];
+    private boolean[][] visited;
 
     public int[][] updateMatrix(int[][] mat) {
-        
-        Queue<Integer> queue = new ArrayDeque<>();
-        int m=mat.length;
-        int n= mat[0].length;
-        visited= new boolean[m*n];
-        for(int i=0;i<m*n;i++){
-            if(mat[i/n][i%n]==0){
-                queue.offer(i);
-                visited[i]=true;
+
+        int m = mat.length;
+        int n = mat[0].length;
+
+        visited = new boolean[m][n];
+        Queue<int[]> queue = new ArrayDeque<>();
+
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (mat[i][j] == 0) {
+                    queue.offer(new int[] { i, j });
+                    visited[i][j] = true;
+                }
             }
         }
 
-        int k=0;
-        while(!queue.isEmpty()){
-            int size=queue.size();
-            for(int i=0;i<size;i++){
-                int a=queue.poll();
-                int r=a/n;
-                int c=a%n;
-                if(mat[r][c]==1) mat[r][c]=k;
+        int k = 0;
 
-                //up
-                if(r!=0 && !visited[(r-1)*n +c]){
-                    visited[(r-1)*n +c]=true;
-                    queue.offer((r-1)*n +c);
+        while (!queue.isEmpty()) {
+
+            int size = queue.size();
+
+            while (size-- > 0) {
+
+                int[] cell = queue.poll();
+                int r = cell[0];
+                int c = cell[1];
+
+                if (k > 0)
+                    mat[r][c] = k;
+
+                // Up
+                if (r > 0 && !visited[r - 1][c]) {
+                    visited[r - 1][c] = true;
+                    queue.offer(new int[] { r - 1, c });
                 }
-                //down
-                if(r!=m-1 && !visited[(r+1)*n +c] ){
-                    visited[(r+1)*n +c]=true;
-                    queue.offer((r+1)*n +c);
+
+                // Down
+                if (r < m - 1 && !visited[r + 1][c]) {
+                    visited[r + 1][c] = true;
+                    queue.offer(new int[] { r + 1, c });
                 }
-                //left
-                if(c!=0 && !visited[r*n + c-1] ){
-                    visited[r*n + c-1]=true;
-                    queue.offer(r*n + c-1);
+
+                // Left
+                if (c > 0 && !visited[r][c - 1]) {
+                    visited[r][c - 1] = true;
+                    queue.offer(new int[] { r, c - 1 });
                 }
-                //right
-                if(c!=n-1 && !visited[r*n +c+1] ){
-                    visited[r*n +c+1]=true;
-                    queue.offer(r*n +c+1);
+
+                // Right
+                if (c < n - 1 && !visited[r][c + 1]) {
+                    visited[r][c + 1] = true;
+                    queue.offer(new int[] { r, c + 1 });
                 }
             }
+
             k++;
         }
+
         return mat;
     }
 }
