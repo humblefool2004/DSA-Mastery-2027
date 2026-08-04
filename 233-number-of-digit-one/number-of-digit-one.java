@@ -14,7 +14,7 @@ class Solution {
         int ub= (bool==1) ? st.charAt(idx)-'0' : 9;
         int res=0;
         for(int i=0;i<=ub;i++){
-            res+=solve(st,idx+1,(bool==1 && i==ub)? bool: 0 ,(i==1)? countOfOne+1 : countOfOne);
+            res+=solve(st,idx+1,(bool==1 && i==ub)? 1: 0 ,(i==1)? countOfOne+1 : countOfOne);
         }
         return memo[idx][bool][countOfOne]=res;
     }
