@@ -1,14 +1,15 @@
 class Solution {
     public int countNumbersWithUniqueDigits(int n) {
-        if(n==0) return 1;
-        if(n==1) return 10;
-        int choices=8;
-        int curr=81;
-        int total=91;
-        for(int len=3 ;len<=n;len++){
-            curr*=choices--;
-            total+=curr;
+        if (n == 0)
+            return 1;
+        int result = 10;
+        int uniqueDigits = 9;
+        int availableDigits = 9;
+        for (int i = 2; i <= n && availableDigits > 0; i++) {
+            uniqueDigits *= availableDigits;
+            result += uniqueDigits;
+            availableDigits--;
         }
-        return total;
+        return result;
     }
 }
