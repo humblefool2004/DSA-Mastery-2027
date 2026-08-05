@@ -4,9 +4,9 @@ class Solution {
         private int[] ultP;
 
         public DisjointSet(int n){
-            size=new int[n+1];
-            ultP= new int[n+1];
-            for(int i=1;i<=n;i++){
+            size=new int[n];
+            ultP= new int[n];
+            for(int i=0;i<n;i++){
                 size[i]=1;
                 ultP[i]=i;
             }
@@ -34,11 +34,11 @@ class Solution {
         DisjointSet ds= new DisjointSet(n);
         for(int i=0;i<n;i++){
             for(int j=i+1;j<n;j++){
-                if(isConnected[i][j]==1) ds.union(i+1,j+1);
+                if(isConnected[i][j]==1) ds.union(i,j);
             }
         }
         int ans=0;
-        for(int i=1;i<=n;i++){
+        for(int i=0;i<n;i++){
             if(ds.findParent(i)==i) ans++;
         }
         return ans;
