@@ -1,19 +1,19 @@
 class Solution {
     private class DisjointSet{
-        private int size[];
-        private int ultP[];
+        private final int size[];
+        private final int parent[];
         public DisjointSet(int n){
             size= new int[n+1];
-            ultP= new int[n+1];
+            parent= new int[n+1];
             for(int i=1;i<=n;i++){
                 size[i]= 1;
-                ultP[i]=i;
+                parent[i]=i;
             }
         }
 
         public int findParent(int u){
-            if(u==ultP[u]) return u;
-            return ultP[u]= findParent(ultP[u]);
+            if(u==parent[u]) return u;
+            return parent[u]= findParent(parent[u]);
         }
 
         public boolean union(int u,int v){
@@ -21,10 +21,10 @@ class Solution {
             int vP= findParent(v);
             if(uP==vP) return false;
             if(size[uP] <size[vP]) {
-                ultP[uP]=vP;
+                parent[uP]=vP;
                 size[vP]+=size[uP];
             }else{
-                ultP[vP]=uP;
+                parent[vP]=uP;
                 size[uP]+= size[vP];
             }
             return true;
