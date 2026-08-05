@@ -55,9 +55,7 @@ class Solution {
                 String st= accounts.get(i).get(j);
                 //finding parent of the email.
                 int idx = ds.findParent(i);
-                TreeSet<String> curr = ans.getOrDefault(idx, new TreeSet<>());
-                curr.add(st);
-                ans.put(idx, curr);
+                ans.computeIfAbsent(idx, k -> new TreeSet<>()).add(st);
             }
         }
 
