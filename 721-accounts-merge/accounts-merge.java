@@ -42,7 +42,7 @@ class Solution {
 
         for (int i = 0; i < n; i++) {
             List<String> account= accounts.get(i);
-            for (int j = 1; j < accounts.get(i).size(); j++) {
+            for (int j = 1; j < account.size(); j++) {
                 String st = account.get(j);
                 Integer owner = map.get(st);
 
