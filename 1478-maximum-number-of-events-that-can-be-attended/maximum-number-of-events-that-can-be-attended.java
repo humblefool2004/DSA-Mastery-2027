@@ -1,3 +1,4 @@
+// in the pq only the end date is needed, but i used int[] because its cheaper than Integer.
 class Solution {
     public int maxEvents(int[][] events) {
         Arrays.sort(events,(a,b)->{
