@@ -1,3 +1,5 @@
+//attempt only if you have sanity more than 80%
+
 class Solution {
     private class DisjointSet {
         private int size[];
@@ -39,30 +41,30 @@ class Solution {
         Map<String, Integer> map = new HashMap<>();
 
         for (int i = 0; i < n; i++) {
-            for (int j=1 ; j<accounts.get(i).size();j++) {
-                String st= accounts.get(i).get(j);
-                if (map.getOrDefault(st, -1) != -1) {
-                    ds.union(i, map.get(st)); //join it, person is same.
+            List<String> account= accounts.get(i);
+            for (int j = 1; j < accounts.get(i).size(); j++) {
+                String st = account.get(j);
+                Integer owner = map.get(st);
+
+                if (owner == null) {
+                    map.put(st, i);
                 } else {
-                    map.put(st, i); //account MAY be different.
+                    ds.union(i, owner);
                 }
             }
         }
 
-        Map<Integer, TreeSet<String>> ans = new HashMap<>();
-        for (int i = 0; i < n; i++) {
-            for (int j=1 ; j<accounts.get(i).size();j++) {
-                String st= accounts.get(i).get(j);
-                //finding parent of the email.
-                int idx = ds.findParent(i);
-                ans.computeIfAbsent(idx, k -> new TreeSet<>()).add(st);
-            }
+        Map<Integer, List<String>> ans = new HashMap<>();
+        for (Map.Entry<String, Integer> entry : map.entrySet()) {
+            int root = ds.findParent(entry.getValue());
+            ans.computeIfAbsent(root, k -> new ArrayList<>()).add(entry.getKey());
         }
 
         List<List<String>> result = new ArrayList<>();
-        for (Map.Entry<Integer, TreeSet<String>> entry : ans.entrySet()) {
+        for (Map.Entry<Integer, List<String>> entry : ans.entrySet()) {
             List<String> curr = new ArrayList<>();
             curr.add(accounts.get(entry.getKey()).get(0));
+            Collections.sort(entry.getValue());
             curr.addAll(entry.getValue());
             result.add(curr);
         }
