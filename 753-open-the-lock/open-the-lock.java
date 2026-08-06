@@ -13,48 +13,45 @@ class Solution {
         while(!queue.isEmpty()){
             int n=queue.size();
             for(int i=0;i<n;i++){
-                StringBuilder sb=new StringBuilder(queue.poll());
-                if(target.equals(sb.toString())) return level;
-                //combinations.
+                char[] arr = queue.poll().toCharArray();
+                if(target.equals(String.valueOf(arr))) return level;
                 for(int  j=0;j<4;j++){
-                    //-1
-                    if(sb.charAt(j) =='0'){
-                        sb.setCharAt(j,'9');
-                        String next=sb.toString();
+                    if(arr[j] =='0'){
+                        arr[j]='9';
+                        String next=String.valueOf(arr);
                         if(!set.contains(next)){
                             queue.offer(next);
                             set.add(next);
                         }
-                            
-                        sb.setCharAt(j,'0');
+                        arr[j]='0';
                     }else{
-                        sb.setCharAt(j,(char)(sb.charAt(j)-1));
-                        String next=sb.toString();
+                        arr[j]= (char)(arr[j]-1);
+                        String next=String.valueOf(arr);
                         if(!set.contains(next)){
                             queue.offer(next);
                             set.add(next);
                         }
-                        sb.setCharAt(j,(char)(sb.charAt(j)+1));
+                        arr[j]= (char)(arr[j]+1);
                     }
 
-                    //+1
-                    if(sb.charAt(j) =='9'){
-                        sb.setCharAt(j,'0');
-                        String next=sb.toString();
+                    if(arr[j] =='9'){
+                        arr[j]='0';
+                        String next=String.valueOf(arr);
                         if(!set.contains(next)){
                             queue.offer(next);
                             set.add(next);
                         }
-                        sb.setCharAt(j,'9');
+                        arr[j]='9';
                     }else{
-                        sb.setCharAt(j,(char)(sb.charAt(j)+1));
-                        String next=sb.toString();
+                        arr[j]= (char)(arr[j]+1);
+                        String next=String.valueOf(arr);
                         if(!set.contains(next)){
                             queue.offer(next);
                             set.add(next);
                         }
-                        sb.setCharAt(j,(char)(sb.charAt(j)-1));
+                        arr[j]= (char)(arr[j]-1);
                     }
+            
                 }
             }
             level++;
