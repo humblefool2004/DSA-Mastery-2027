@@ -20,17 +20,19 @@ class Solution {
                     //-1
                     if(sb.charAt(j) =='0'){
                         sb.setCharAt(j,'9');
-                        if(!set.contains(sb.toString())){
-                            queue.offer(sb.toString());
-                            set.add(sb.toString());
+                        String next=sb.toString();
+                        if(!set.contains(next)){
+                            queue.offer(next);
+                            set.add(next);
                         }
                             
                         sb.setCharAt(j,'0');
                     }else{
                         sb.setCharAt(j,(char)(sb.charAt(j)-1));
-                        if(!set.contains(sb.toString())){
-                            queue.offer(sb.toString());
-                            set.add(sb.toString());
+                        String next=sb.toString();
+                        if(!set.contains(next)){
+                            queue.offer(next);
+                            set.add(next);
                         }
                         sb.setCharAt(j,(char)(sb.charAt(j)+1));
                     }
@@ -38,16 +40,18 @@ class Solution {
                     //+1
                     if(sb.charAt(j) =='9'){
                         sb.setCharAt(j,'0');
-                        if(!set.contains(sb.toString())){
-                            queue.offer(sb.toString());
-                            set.add(sb.toString());
+                        String next=sb.toString();
+                        if(!set.contains(next)){
+                            queue.offer(next);
+                            set.add(next);
                         }
                         sb.setCharAt(j,'9');
                     }else{
                         sb.setCharAt(j,(char)(sb.charAt(j)+1));
-                        if(!set.contains(sb.toString())){
-                            queue.offer(sb.toString());
-                            set.add(sb.toString());
+                        String next=sb.toString();
+                        if(!set.contains(next)){
+                            queue.offer(next);
+                            set.add(next);
                         }
                         sb.setCharAt(j,(char)(sb.charAt(j)-1));
                     }
