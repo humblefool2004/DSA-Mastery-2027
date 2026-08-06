@@ -8,23 +8,19 @@ class Solution {
         for (int i = 0; i < n; i++) {
             if (arr[i] == 0) {
                 arr[i] = -1;
-                ans = (ans && bipartite(graph, -1, i));
+                if(!bipartite(graph,-1,i)) return false;
             }
-
-            if (!ans)
-                return false;
         }
         return true;
     }
 
-    private boolean bipartite(int[][] graph, int lastColour, int i) {
+    private boolean bipartite(int[][] graph, int currColour, int i) {
         for (int num : graph[i]) {
             if (arr[num] == 0) {
-                int newColour = lastColour == -1 ? 1 : -1;
-                arr[num] = newColour;
-                if(!bipartite(graph, newColour, num)) return false;
+                arr[num] = -currColour;
+                if(!bipartite(graph, -currColour, num)) return false;
             } else {
-                if (arr[num] == lastColour)
+                if (arr[num] == currColour)
                     return false;
             }
 
