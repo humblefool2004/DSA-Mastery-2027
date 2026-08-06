@@ -20,41 +20,24 @@ class Solution {
                     return level;
                 char[] arr = curr.toCharArray();
                 for (int j = 0; j < 4; j++) {
-                    if (arr[j] == '0') {
-                        arr[j] = '9';
-                        String next = String.valueOf(arr);
-                        if (!set.contains(next)) {
-                            queue.offer(next);
-                            set.add(next);
-                        }
-                        arr[j] = '0';
-                    } else {
-                        arr[j] = (char) (arr[j] - 1);
-                        String next = String.valueOf(arr);
-                        if (!set.contains(next)) {
-                            queue.offer(next);
-                            set.add(next);
-                        }
-                        arr[j] = (char) (arr[j] + 1);
+                    char old = arr[j];
+
+                    //-1
+                    arr[j] = (char) ('0' + (old - '0' + 9) % 10);
+                    String next = String.valueOf(arr);
+                    if (!set.contains(next)) {
+                        queue.offer(next);
+                        set.add(next);
                     }
 
-                    if (arr[j] == '9') {
-                        arr[j] = '0';
-                        String next = String.valueOf(arr);
-                        if (!set.contains(next)) {
-                            queue.offer(next);
-                            set.add(next);
-                        }
-                        arr[j] = '9';
-                    } else {
-                        arr[j] = (char) (arr[j] + 1);
-                        String next = String.valueOf(arr);
-                        if (!set.contains(next)) {
-                            queue.offer(next);
-                            set.add(next);
-                        }
-                        arr[j] = (char) (arr[j] - 1);
+                    arr[j] = (char) ('0' + (old - '0' + 1) % 10);
+                    next = String.valueOf(arr);
+                    if (!set.contains(next)) {
+                        queue.offer(next);
+                        set.add(next);
                     }
+
+                    arr[j]=old;
 
                 }
             }
