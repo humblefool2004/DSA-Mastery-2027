@@ -7,13 +7,13 @@ class Solution {
             return Integer.compare(b[0],a[0]);
         } 
         );
-        
         int ans=0;
+        int prev= intervals[0][1];
         for(int i=1;i<intervals.length;i++){
-            int prev=i-1;
-            while(i<intervals.length && intervals[prev][1]> intervals[i][0]){
+            if(intervals[i][0]<prev){
                 ans++;
-                i++;
+            }else{
+                prev=intervals[i][1];
             }
         }
         return ans;
