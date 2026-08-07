@@ -1,21 +1,27 @@
 class Solution {
     public int[] maxSlidingWindow(int[] nums, int k) {
         int n= nums.length;
-        int ans[]= new int[n-k+1];
-
-        PriorityQueue<Integer> pq = new PriorityQueue<>((a,b)-> nums[b]-nums[a]);
-        for(int i=0;i<k;i++){
-            pq.add(i);
+        int arr[]= new int[n-k+1];
+        Deque<Integer> mono= new ArrayDeque();
+        int idx=0;
+        int curr=0;
+        while(curr<k){
+            while(!mono.isEmpty() && nums[mono.peekLast()] <=nums[curr]){
+                mono.pollLast();
+            }
+            mono.offer(curr++);
         }
-        ans[0]=nums[pq.peek()];
-        int end=k; //curr position of end
-        for(int i=1;i<=n-k;i++){
-            //logic to remove the last element
-            while(!pq.isEmpty() && pq.peek()<i) pq.poll();
-            pq.add(end++);
-            ans[i]=nums[pq.peek()];
+        arr[idx++]= nums[mono.peek()];
+        while(curr<n){
+            while(!mono.isEmpty() && nums[mono.peekLast()] <=nums[curr]){
+                mono.pollLast();
+            }
+            while(!mono.isEmpty() && mono.peek() <idx){
+                mono.poll();
+            }
+            mono.offer(curr++);
+            arr[idx++]=nums[mono.peek()];
         }
-        return ans;
-
+        return arr;
     }
 }
