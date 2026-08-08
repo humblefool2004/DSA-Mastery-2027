@@ -22,17 +22,11 @@ class Solution {
     }
 
     private int count(int[] row, int mid){
-        int low=0;
-        int high=row.length;
-        while(low<high){
-            int m= low+ (high-low)/2;
-            if(row[m] <=mid){
-                low=m+1;
-            }else{
-                high=m;
-            }
+
+        for(int i=0;i<row.length;i++){
+            if(row[i]>mid) return i;
         }
-        return low;
+        return row.length;
     }
 }
 
