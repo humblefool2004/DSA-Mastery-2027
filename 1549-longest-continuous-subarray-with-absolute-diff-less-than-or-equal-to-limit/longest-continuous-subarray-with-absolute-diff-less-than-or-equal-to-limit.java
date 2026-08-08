@@ -1,33 +1,35 @@
 class Solution {
     public int longestSubarray(int[] nums, int limit) {
-        Deque<Integer> decreasing= new ArrayDeque<>();
-        Deque<Integer> increasing= new ArrayDeque<>();
 
-        int left=0;
-        int length=0;
-        for(int right=0;right<nums.length;right++){
-            while(!decreasing.isEmpty() && nums[decreasing.peekLast()]<nums[right]){
-                decreasing.pollLast();
-            }   
-            while(!increasing.isEmpty() && nums[increasing.peekLast()]>nums[right]){
-                increasing.pollLast();
+        Deque<Integer> maxDeque = new ArrayDeque<>();
+        Deque<Integer> minDeque = new ArrayDeque<>();
+
+        int left = 0;
+        int ans = 0;
+
+        for(int right = 0; right < nums.length; right++) {
+            while(!maxDeque.isEmpty() && nums[maxDeque.peekLast()] <= nums[right]) {
+                maxDeque.pollLast();
             }
-            increasing.offerLast(right);
-            decreasing.offerLast(right);
-            while(nums[decreasing.peekFirst()]-nums[increasing.peekFirst()]>limit){
-                
-                if(decreasing.peekFirst()==left){
-                    decreasing.pollFirst();
-                }
-                if(increasing.peekFirst()==left){
-                    increasing.pollFirst();
-                }
+            maxDeque.offerLast(right);
+
+            while(!minDeque.isEmpty() && nums[minDeque.peekLast()] >= nums[right]) {
+                minDeque.pollLast();
+            }
+            minDeque.offerLast(right);
+
+            while(nums[maxDeque.peekFirst()] - nums[minDeque.peekFirst()] > limit) {
+
+                if(maxDeque.peekFirst() == left)
+                    maxDeque.pollFirst();
+
+                if(minDeque.peekFirst() == left)
+                    minDeque.pollFirst();
+
                 left++;
             }
-            
-            length=Math.max(length,right-left+1);
+            ans = Math.max(ans, right-left+1);
         }
-
-        return length;
+        return ans;
     }
 }
