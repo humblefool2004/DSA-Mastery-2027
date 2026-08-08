@@ -1,4 +1,4 @@
-//binary search
+//binary search, search values instead of indexes
 class Solution {
     public int kthSmallest(int[][] matrix, int k) {
         
