@@ -1,4 +1,4 @@
-//binary search, search values instead of indexes
+//binary search, search values instead of index
 class Solution {
     public int kthSmallest(int[][] matrix, int k) {
         
@@ -8,11 +8,7 @@ class Solution {
         
         while(low<high){
             int mid=low+ (high-low)/2;
-            int count=0;
-            for(int i=0;i<n;i++){
-                count+= count(matrix[i],mid);
-            }
-            if(count<k){
+            if(count(matrix,mid)<k){
                 low=mid+1;
             }else{
                 high=mid;
@@ -21,12 +17,20 @@ class Solution {
         return low;
     }
 
-    private int count(int[] row, int mid){
-
-        for(int i=0;i<row.length;i++){
-            if(row[i]>mid) return i;
+    private int count(int[][] nums, int target){
+        int count=0;
+        int n= nums.length;
+        int row=n-1;
+        int col=0;
+        while(row>=0 && col<n){
+            if(target<nums[row][col]){
+                row--;
+            }else{
+                count+= row+1;
+                col++;
+            }
         }
-        return row.length;
+        return count;
     }
 }
 
