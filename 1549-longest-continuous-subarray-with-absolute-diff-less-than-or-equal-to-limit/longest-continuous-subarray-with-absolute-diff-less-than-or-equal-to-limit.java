@@ -4,9 +4,8 @@ class Solution {
         Deque<Integer> increasing= new ArrayDeque<>();
 
         int left=0;
-        int right=0;
         int length=0;
-        while(right<nums.length){
+        for(int right=0;right<nums.length;right++){
             while(!decreasing.isEmpty() && nums[decreasing.peekLast()]<nums[right]){
                 decreasing.pollLast();
             }   
@@ -26,8 +25,7 @@ class Solution {
                 left++;
             }
             
-            right++;
-            length=Math.max(length,right-left);
+            length=Math.max(length,right-left+1);
         }
 
         return length;
