@@ -1,23 +1,33 @@
 class Solution {
     public int longestSubarray(int[] nums, int limit) {
-        Deque<Integer> maxD = new ArrayDeque<>(); // decreasing: front = window max
-        Deque<Integer> minD = new ArrayDeque<>(); // increasing: front = window min
-        int left = 0, ans = 0;
+        Deque<Integer> decreasing= new ArrayDeque<>();
+        Deque<Integer> increasing= new ArrayDeque<>();
 
-        for (int right = 0; right < nums.length; right++) {
-            while (!maxD.isEmpty() && maxD.peekLast() < nums[right]) maxD.pollLast();
-            maxD.offerLast(nums[right]);
-            while (!minD.isEmpty() && minD.peekLast() > nums[right]) minD.pollLast();
-            minD.offerLast(nums[right]);
-
-            // the invalid check — same as your brute force's diff > limit
-            while (maxD.peekFirst() - minD.peekFirst() > limit) {
-                if (maxD.peekFirst() == nums[left]) maxD.pollFirst();
-                if (minD.peekFirst() == nums[left]) minD.pollFirst();
+        int left=0;
+        int length=0;
+        for(int right=0;right<nums.length;right++){
+            while(!decreasing.isEmpty() && nums[decreasing.peekLast()]<nums[right]){
+                decreasing.pollLast();
+            }   
+            while(!increasing.isEmpty() && nums[increasing.peekLast()]>nums[right]){
+                increasing.pollLast();
+            }
+            increasing.offerLast(right);
+            decreasing.offerLast(right);
+            while(nums[decreasing.peekFirst()]-nums[increasing.peekFirst()]>limit){
+                
+                if(decreasing.peekFirst()==left){
+                    decreasing.pollFirst();
+                }
+                if(increasing.peekFirst()==left){
+                    increasing.pollFirst();
+                }
                 left++;
             }
-            ans = Math.max(ans, right - left + 1);
+            
+            length=Math.max(length,right-left+1);
         }
-        return ans;
+
+        return length;
     }
 }
