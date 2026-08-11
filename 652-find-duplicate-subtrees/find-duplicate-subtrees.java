@@ -1,37 +1,77 @@
-/**
- * Definition for a binary tree node.
- * public class TreeNode {
- *     int val;
- *     TreeNode left;
- *     TreeNode right;
- *     TreeNode() {}
- *     TreeNode(int val) { this.val = val; }
- *     TreeNode(int val, TreeNode left, TreeNode right) {
- *         this.val = val;
- *         this.left = left;
- *         this.right = right;
- *     }
- * }
- */
 class Solution {
-    private Map<String,Integer> map=new HashMap<>();
-    private List<TreeNode> ans= new ArrayList<>();
+
+    private Map<Key, Integer> map;
+    private Map<Integer, Integer> count;
+    private List<TreeNode> ans;
+    private int id;
+
     public List<TreeNode> findDuplicateSubtrees(TreeNode root) {
+
+        map = new HashMap<>();
+        count = new HashMap<>();
+        ans = new ArrayList<>();
+        id = 1;
+
         dfs(root);
+
         return ans;
     }
 
-    private String dfs(TreeNode root){
-        if(root==null){
-            return "";
-        }
-        String left= dfs(root.left);
-        String right=dfs(root.right);
-        String curr= root.val + ","+left+","+right;
-        map.put(curr, map.getOrDefault(curr,0)+1);
-        if(map.get(curr)==2){
+    private int dfs(TreeNode root) {
+
+        if(root == null)
+            return 0;
+
+        int left = dfs(root.left);
+        int right = dfs(root.right);
+
+        Key key = new Key(root.val, left, right);
+
+        int currId = map.getOrDefault(key, id);
+
+        if(!map.containsKey(key))
+            map.put(key, id++);
+
+        int freq = count.getOrDefault(currId, 0) + 1;
+        count.put(currId, freq);
+
+        if(freq == 2)
             ans.add(root);
+
+        return currId;
+    }
+
+    private static class Key {
+
+        int val;
+        int left;
+        int right;
+
+        Key(int val, int left, int right) {
+            this.val = val;
+            this.left = left;
+            this.right = right;
         }
-        return curr;
+
+        @Override
+        public boolean equals(Object obj) {
+
+            if(this == obj)
+                return true;
+
+            if(!(obj instanceof Key))
+                return false;
+
+            Key other = (Key)obj;
+
+            return val == other.val &&
+                   left == other.left &&
+                   right == other.right;
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(val, left, right);
+        }
     }
 }
