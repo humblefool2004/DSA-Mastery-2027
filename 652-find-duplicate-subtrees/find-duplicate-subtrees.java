@@ -1,19 +1,27 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
 class Solution {
 
-    private Map<Key, Integer> map;
-    private Map<Integer, Integer> count;
-    private List<TreeNode> ans;
-    private int id;
+    private Map<String, Integer> map = new HashMap<>();
+    private Map<Integer, Integer> count = new HashMap<>();
+    private List<TreeNode> ans = new ArrayList<>();
+    private int id = 1;
 
     public List<TreeNode> findDuplicateSubtrees(TreeNode root) {
-
-        map = new HashMap<>();
-        count = new HashMap<>();
-        ans = new ArrayList<>();
-        id = 1;
-
         dfs(root);
-
         return ans;
     }
 
@@ -25,7 +33,7 @@ class Solution {
         int left = dfs(root.left);
         int right = dfs(root.right);
 
-        Key key = new Key(root.val, left, right);
+        String key = root.val + "," + left + "," + right;
 
         int currId = map.getOrDefault(key, id);
 
@@ -39,39 +47,5 @@ class Solution {
             ans.add(root);
 
         return currId;
-    }
-
-    private static class Key {
-
-        int val;
-        int left;
-        int right;
-
-        Key(int val, int left, int right) {
-            this.val = val;
-            this.left = left;
-            this.right = right;
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-
-            if(this == obj)
-                return true;
-
-            if(!(obj instanceof Key))
-                return false;
-
-            Key other = (Key)obj;
-
-            return val == other.val &&
-                   left == other.left &&
-                   right == other.right;
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(val, left, right);
-        }
     }
 }
