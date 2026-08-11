@@ -24,10 +24,11 @@ class Solution {
         if(root==null) return 0;
         int left= dfs(root.left);
         int right= dfs(root.right);
-        max= Math.max(left+right+root.val, max);
-        max= Math.max(max,root.val);
-        int val= root.val+ Math.max(left,right);
-        max= Math.max(val,max);
-        return Math.max(val,root.val);
+        max= Math.max(
+            Math.max(0,left)+
+            Math.max(0,right)+
+            root.val, 
+            max);
+        return root.val+ Math.max(0,Math.max(left,right));
     }
 }
