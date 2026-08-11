@@ -23,14 +23,15 @@ class Solution {
 
     private String dfs(TreeNode root){
         if(root==null){
-            return "#";
+            return "";
         }
         String left= dfs(root.left);
         String right=dfs(root.right);
         String curr= root.val + ","+left+","+right;
-        int count= map.getOrDefault(curr,0);
-        if(count==1) ans.add(root);
-        map.put(curr,count+1);
+        map.put(curr, map.getOrDefault(curr,0)+1);
+        if(map.get(curr)==2){
+            ans.add(root);
+        }
         return curr;
     }
 }
