@@ -9,11 +9,11 @@ class Solution {
             list.get(edge[0]).add(edge[1]);
             list.get(edge[1]).add(edge[0]);
         }
-        List<Integer> degree= new ArrayList<>();
+        int[] degree= new int[n];
         Deque<Integer> queue= new ArrayDeque<>();
         for(int i=0;i<n;i++){
-            degree.add(list.get(i).size());
-            if(degree.get(i)==1) queue.add(i); 
+            degree[i]=list.get(i).size();
+            if(degree[i]==1) queue.add(i); 
         }
 
         int remaining=n;
@@ -23,16 +23,13 @@ class Solution {
             for(int i=0;i<size;i++){
                 int removed=queue.poll();
                     for(int num : list.get(removed)){
-                        degree.set(num, degree.get(num) - 1);
-                        if(degree.get(num)==1) queue.add(num);
+                        if(--degree[num]==1) queue.add(num);
                     }
             }
             remaining-=size;
         }
-        List<Integer> ans= new ArrayList<>();
-        while(!queue.isEmpty()){
-            ans.add(queue.poll());
-        }
-        return ans;
+        if(remaining==2){
+            return List.of(queue.poll(),queue.poll());
+        }else return List.of(queue.poll());
     }
 }
