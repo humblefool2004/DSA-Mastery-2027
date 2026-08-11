@@ -1,3 +1,5 @@
+
+//onion peel method, also note: mht has max 2 centroids. remove leafs again and again
 class Solution {
     public List<Integer> findMinHeightTrees(int n, int[][] edges) {
         if(n==1) return List.of(0);
