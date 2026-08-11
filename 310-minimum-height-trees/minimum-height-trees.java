@@ -28,6 +28,8 @@ class Solution {
             }
             remaining-=size;
         }
-        return new ArrayList<>(queue);
+        if(remaining==2){
+            return List.of(queue.poll(),queue.poll());
+        }else return List.of(queue.poll());
     }
 }
