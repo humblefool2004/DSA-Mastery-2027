@@ -1,23 +1,15 @@
 # Write your MySQL query statement below
-SELECT p.product_id,ROUND(
-    CASE 
-        WHEN SUM(CASE WHEN units IS NULL THEN 0 ELSE units END)=0 THEN 0
-    ELSE
-        SUM(CASE WHEN price IS NULL OR units IS NULL THEN 0 ELSE price*units END)/
-        SUM(CASE WHEN units IS NULL THEN 0 ELSE units END)
-    END
-    ,2
-) as average_price
+#Learned COALESCE If the calculated average is NULL, return 0 instead. here we can write any number instead of 0 too
+SELECT p.product_id,
+    COALESCE(
+        ROUND(
+        SUM(price*units)/
+        SUM(units)
+        ,2)
+    ,0
+    ) as average_price
 FROM Prices p 
 LEFT JOIN UnitsSold s 
 ON p.product_id=s.product_id 
-WHERE (purchase_date>=start_date AND purchase_date<=end_date) OR purchase_date IS NULL
+AND purchase_date BETWEEN start_date AND end_date
 GROUP BY p.product_id;
-
-
--- p.product_id, 
--- ROUND(
---     SUM(CASE WHEN price IS NULL OR units IS NULL THEN 0 ELSE price*units END)/
---     SUM(CASE WHEN units IS NULL THEN 0 ELSE units END)
---     ,2
--- ) as average_price
