@@ -1,5 +1,5 @@
 # Write your MySQL query statement below
-
+#REVIEW AGAIN, A LIL BIG QUESTION
 SELECT
     s.student_id,
     s.student_name,
