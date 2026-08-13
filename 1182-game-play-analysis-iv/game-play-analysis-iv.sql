@@ -7,4 +7,4 @@ RIGHT JOIN
     MIN(event_date) AS first_login
 FROM Activity 
 GROUP BY player_id) b
-ON a.player_id= b.player_id AND DATEDIFF(event_date,first_login)=1;
+ON a.player_id= b.player_id AND DATEDIFF(a.event_date,b.first_login)=1;
