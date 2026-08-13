@@ -51,7 +51,7 @@ class MyHashMap {
             head=head.next;
         }
         if(head==null) return;
-        if(prev==null) map[index]= map[index].next;
+        if(prev==null) map[index]= head.next;
         else prev.next=head.next;
     }
 }
