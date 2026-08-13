@@ -1,5 +1,6 @@
 # Write your MySQL query statement below
 #Learned COALESCE If the calculated average is NULL, return 0 instead. here we can write any number instead of 0 too
+#COALESCE(x,y,z) will give the first value that is not null;
 #SUM FUNCTION IGNORES NULL VALUES.
 SELECT p.product_id,
     COALESCE(
