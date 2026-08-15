@@ -1,9 +1,9 @@
 # Write your MySQL query statement below
-SELECT s.id,
+SELECT current.id,
 CASE 
-    WHEN s.id%2=0 
-    THEN m.student 
-    ELSE IFNULL(t.student,s.student) 
-    END AS student FROM Seat s
-LEFT JOIN Seat t ON t.id=s.id+1 LEFT JOIN Seat m
-ON s.id=m.id+1
+    WHEN current.id%2=0 
+    THEN next.student 
+    ELSE COALESCE(prev.student,current.student) 
+    END AS student FROM Seat current
+LEFT JOIN Seat prev ON prev.id=current.id+1 LEFT JOIN Seat next
+ON current.id=next.id+1;
