@@ -1,4 +1,5 @@
 # Write your MySQL query statement below
+#MAX returns null if all values are null or there are no rows
 SELECT MAX(salary) AS SecondHighestSalary 
 FROM
 (
