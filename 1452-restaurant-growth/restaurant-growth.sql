@@ -1,5 +1,5 @@
 # Write your MySQL query statement below
-
+#rows between syntax inside over thing,and row_number() and 
 SELECT visited_on,amount,average_amount
 FROM 
 (
